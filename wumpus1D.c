@@ -54,11 +54,11 @@ int main()
     /* The game loop */
     while (true)
     {
-        DisplayWorld(cave, agentRoom, agentDirection);
 
         if (DisplayStatus(cave, agentRoom))
             break;
 
+        // DisplayWorld(cave, agentRoom, agentDirection);
 
         printf("command: ");
         scanf("%20s", command);
@@ -94,15 +94,22 @@ int main()
                 {
                     arrow++;
                 }
-                if (*arrow == End)
+
+
+                if (*arrow != End)
                 {
-                    break;
+                    if (*arrow = Wumpus)
+                    {
+                        /* Do something here */
+                        *arrow = Empty;
+                    }
+                    else
+                    {
+                        continue;
+                    }
                 }
-                else if (*arrow = Wumpus)
-                {
-                    /* Do something here */
-                    *arrow = Empty;
-                }
+
+                break;
             }
         }
         else
@@ -194,13 +201,16 @@ bool DisplayStatus(int cave[], int *agent)
     if (*agent == Wumpus)
     {
         printf("You have been eaten by the Wumpus\n");
+        /* We will return true to indicate we are dead! */
         return true;
     }
+
 
     if ( *(agent + 1) == Wumpus || *(agent - 1) == Wumpus)
     {
         printf("I smell a Wumpus\n");
     }
+
 
     bool deadOfWupus = false;
     int i;
@@ -211,15 +221,13 @@ bool DisplayStatus(int cave[], int *agent)
             deadOfWupus = true;
         }
     }
-
     if (!deadOfWupus)
     {
-        printf("The Wumpus has dead, and You won the game!!!\n");
-        exit(1);
+        printf("The Wumpus has dead, and You won the game\n");
+        /* We will return true to indicate the Wumpus has dead! */
+        return true;
     }
 
 
-
-    /* We will return true to indicate we are dead! */
     return false;
 }
