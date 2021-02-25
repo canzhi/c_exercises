@@ -58,7 +58,7 @@ int main()
         if (DisplayStatus(cave, agentRoom))
             break;
 
-        // DisplayWorld(cave, agentRoom, agentDirection);
+        DisplayWorld(cave, agentRoom, agentDirection);
 
         printf("command: ");
         scanf("%20s", command);
